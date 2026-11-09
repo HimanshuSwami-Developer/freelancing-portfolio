@@ -1,0 +1,17 @@
+{
+  "name": "himanshu-portfolio",
+  "version": "1.0.0",
+  "description": "Freelance developer portfolio \u2014 HTML, Tailwind CSS, jQuery",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./assets/css/output.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./assets/css/output.css --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

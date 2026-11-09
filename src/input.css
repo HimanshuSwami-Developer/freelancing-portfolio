@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Base ---------- */
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { @apply bg-paper font-sans text-ink antialiased; }
+  :focus-visible { outline: 3px solid #2B59C3; outline-offset: 3px; }
+}
+
+/* ---------- Reusable comic components ---------- */
+@layer components {
+  .container-site { @apply mx-auto w-full max-w-site px-5 sm:px-6; }
+
+  /* Paper dot texture */
+  .halftone {
+    background-image: radial-gradient(#EADFC8 1.3px, transparent 1.6px);
+    background-size: 20px 20px;
+  }
+  .halftone-dark {
+    background-image: radial-gradient(rgba(17,17,17,.12) 1.4px, transparent 1.7px);
+    background-size: 12px 12px;
+  }
+  .halftone-light {
+    background-image: radial-gradient(rgba(255,255,255,.16) 2px, transparent 2.4px);
+    background-size: 16px 16px;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border-[3px] border-ink
+           px-6 font-display text-xl tracking-wider shadow-comic transition-transform duration-150
+           hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none;
+  }
+  .btn-red    { @apply btn bg-comic-red text-white; }
+  .btn-yellow { @apply btn bg-comic-yellow text-ink; }
+  .btn-white  { @apply btn bg-white text-ink; }
+  .btn-sm {
+    @apply inline-flex min-h-[44px] items-center gap-1.5 rounded-lg border-2 border-ink bg-white px-4
+           text-sm font-extrabold text-ink shadow-comic-sm transition-transform hover:-translate-y-0.5;
+  }
+
+  /* Panels & stickers */
+  .panel   { @apply rounded-2xl border-[3px] border-ink bg-white shadow-comic; }
+  .tag     { @apply inline-block border-[3px] border-ink px-3.5 py-1 font-display text-xl tracking-wider shadow-comic-sm; }
+  .section-title { @apply font-display text-5xl leading-none tracking-wide md:text-6xl; }
+
+  /* Filter / choice chips */
+  .chip {
+    @apply min-h-[44px] cursor-pointer rounded-full border-2 border-ink bg-white px-4 text-sm font-bold
+           text-ink transition-colors hover:bg-comic-yellow/40;
+  }
+  .chip.is-active, .chip[aria-pressed="true"], input:checked + .chip { @apply bg-ink text-white; }
+
+  /* Starburst shape */
+  .burst {
+    clip-path: polygon(50% 0%, 61% 18%, 82% 10%, 80% 32%, 100% 40%, 85% 56%, 98% 76%, 76% 78%, 70% 100%,
+                       52% 86%, 32% 100%, 26% 79%, 3% 78%, 14% 58%, 0% 40%, 19% 31%, 17% 9%, 38% 18%);
+  }
+
+  /* Tape strips */
+  .tape { @apply absolute h-[18px] w-[50px] -rotate-[28deg] border border-ink/25 bg-white/80; }
+
+  /* Form fields */
+  .field {
+    @apply min-h-[48px] w-full rounded-xl border-[3px] border-ink bg-white px-4 py-3 text-base text-ink
+           placeholder:text-body/70 focus:outline-none focus:ring-4 focus:ring-comic-blue/40;
+  }
+  .field.is-invalid { @apply border-comic-red ring-4 ring-comic-red/25; }
+
+  /* Mobile tab bar link */
+  .tab-link {
+    @apply flex min-h-[56px] flex-col items-center justify-center gap-1 text-xs font-bold text-body;
+  }
+  .tab-link.is-active { @apply text-comic-red; }
+}
+
+/* ---------- Scroll reveal (motion-safe) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .float { animation: float 4s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px) rotate(var(--r, 0deg)); } }
+}
