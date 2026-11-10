@@ -90,6 +90,28 @@ window.SITE = {
         { label: 'Website', href: 'https://apnibus.com/' },
       ],
     },
+    {
+      name: 'Cleanz24',
+      categories: ['web'],
+      platform: 'Website',
+      sector: 'Dry cleaning & laundry',
+      domain: 'tiny-sun-770e.workers.dev',
+      bg: '#D6F4F7', ink: '#0E7490',
+      image: '',
+      desc: 'Free pickup and 24-hour delivery, with a price estimator, pickup booking form and WhatsApp booking.',
+      links: [{ label: 'Visit site', href: 'https://tiny-sun-770e.himanshuswami2810.workers.dev/#book' }],
+    },
+    {
+      name: 'Cup2Eat',
+      categories: ['web', 'ecommerce'],
+      platform: 'Website',
+      sector: 'Edible chocolate cups',
+      domain: 'bold-dew-1e09.workers.dev',
+      bg: '#F3E3D3', ink: '#7C2D12',
+      image: '',
+      desc: 'A product site for edible chocolate-coated cups, with retail and bulk packs and wholesale enquiries.',
+      links: [{ label: 'Visit site', href: 'https://bold-dew-1e09.himanshuswami2810.workers.dev/' }],
+    },
   ],
 
   /**
