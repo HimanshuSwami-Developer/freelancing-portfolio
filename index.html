@@ -319,6 +319,20 @@
       <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Hire me</a>
   </nav>
 
+  <!-- ===================== VIDEO PLAYER ===================== -->
+  <div id="video-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/80 p-4"
+       role="dialog" aria-modal="true" aria-labelledby="video-title">
+    <div class="w-full max-w-4xl rounded-2xl border-[3px] border-ink bg-white shadow-comic-lg">
+      <div class="flex items-center justify-between gap-3 border-b-[3px] border-ink px-4 py-2">
+        <h3 id="video-title" class="truncate font-display text-2xl tracking-wide"></h3>
+        <button type="button" data-close class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-2 border-ink bg-comic-yellow shadow-comic-sm" aria-label="Close video">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <video id="video-player" class="block aspect-video w-full rounded-b-[13px] bg-ink" controls playsinline preload="none"></video>
+    </div>
+  </div>
+
   <script src="assets/vendor/jquery.min.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>

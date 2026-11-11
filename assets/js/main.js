@@ -37,6 +37,21 @@
     },
 
     cover(p) {
+      if (p.video) {
+        return `
+          <button type="button" class="group relative block h-full w-full overflow-hidden rounded-t-lg border-[3px] border-b-0 border-ink bg-ink"
+                  data-video="${esc(p.video)}" data-poster="${esc(p.poster || '')}" data-title="${esc(p.name)}"
+                  aria-label="Play ${esc(p.name)} promo video">
+            <img src="${esc(p.poster || '')}" alt="" loading="lazy" decoding="async"
+                 class="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105">
+            <span aria-hidden="true" class="absolute inset-0 flex items-center justify-center bg-ink/10 transition-colors group-hover:bg-ink/25">
+              <span class="flex h-16 w-16 items-center justify-center rounded-full border-[3px] border-ink bg-comic-red text-white shadow-comic transition-transform group-hover:scale-110">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+              </span>
+            </span>
+            ${p.duration ? `<span aria-hidden="true" class="absolute bottom-2 right-2 rounded-md bg-ink/85 px-2 py-0.5 text-xs font-bold text-white">▶ ${esc(p.duration)}</span>` : ''}
+          </button>`;
+      }
       if (p.image) {
         return `<img src="${esc(p.image)}" alt="${esc(p.name)} screenshot" loading="lazy" decoding="async"
                   class="h-full w-full rounded-t-lg border-[3px] border-b-0 border-ink object-cover object-top">`;
@@ -60,7 +75,10 @@
     card(p, i) {
       const links = p.links.map((l) =>
         `<a href="${esc(l.href)}" target="_blank" rel="noopener" class="btn-sm">${esc(l.label)}${ARROW}</a>`
-      ).join('');
+      ).join('') + (p.video
+        ? `<button type="button" class="btn-sm bg-comic-yellow" data-video="${esc(p.video)}" data-poster="${esc(p.poster || '')}" data-title="${esc(p.name)}">Watch video
+             <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></button>`
+        : '');
       return `
         <article class="reveal relative flex flex-col rounded-2xl border-[3px] border-ink bg-white shadow-comic-lg">
           <span class="absolute -top-4 left-4 z-10 -rotate-6 border-[3px] border-ink bg-comic-yellow px-3 font-display text-xl tracking-wider shadow-comic-sm">#${pad2(i + 1)}</span>
@@ -81,6 +99,48 @@
       this.$grid.html(list.map((p, i) => this.card(p, i)).join(''));
       $('#projects-count').text(`${list.length} project${list.length === 1 ? '' : 's'}`);
       Reveal.observe(this.$grid.find('.reveal'));
+    },
+  };
+
+  // ---------- Video player (modal) ----------
+  const Player = {
+    $modal: null,
+    $video: null,
+    lastFocus: null,
+
+    init() {
+      this.$modal = $('#video-modal');
+      this.$video = $('#video-player');
+      if (!this.$modal.length) return;
+
+      $(document).on('click', '[data-video]', (e) => {
+        const $t = $(e.currentTarget);
+        this.open($t.data('video'), $t.data('poster'), $t.data('title'));
+      });
+      this.$modal.on('click', '[data-close]', () => this.close());
+      this.$modal.on('click', (e) => { if (e.target === this.$modal[0]) this.close(); });
+      $(document).on('keydown', (e) => { if (e.key === 'Escape' && !this.$modal.hasClass('hidden')) this.close(); });
+    },
+
+    open(src, poster, title) {
+      this.lastFocus = document.activeElement;
+      $('#video-title').text(`${title} — promo video`);
+      this.$video.attr({ src, poster: poster || null });
+      this.$modal.removeClass('hidden').addClass('flex');
+      $('body').css('overflow', 'hidden');
+      this.$modal.find('[data-close]').first().trigger('focus');
+      const playing = this.$video[0].play();
+      if (playing && playing.catch) playing.catch(() => {}); // autoplay blocked → user presses play
+    },
+
+    close() {
+      const v = this.$video[0];
+      v.pause();
+      this.$video.removeAttr('src');
+      v.load(); // stop downloading
+      this.$modal.addClass('hidden').removeClass('flex');
+      $('body').css('overflow', '');
+      if (this.lastFocus) this.lastFocus.focus();
     },
   };
 
@@ -236,6 +296,7 @@
   $(function () {
     Reveal.init();
     Projects.init();
+    Player.init();
     Fixes.init();
     Nav.init();
     Contact.init();

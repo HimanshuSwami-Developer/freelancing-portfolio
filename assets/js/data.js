@@ -19,6 +19,8 @@ window.SITE = {
   /**
    * image: path to a screenshot, e.g. 'assets/img/projects/aapno-bazar.jpg'.
    * Leave empty to show the illustrated placeholder.
+   * video / poster: optional promo video (mp4) + its thumbnail. When set, the
+   * card cover becomes a play button that opens the video player.
    */
   projects: [
     {
@@ -40,6 +42,7 @@ window.SITE = {
       domain: 'bold-tooth-bb5d.workers.dev',
       bg: '#FDE8D7', ink: '#9A3412',
       image: '',
+      video: 'assets/video/spark-cafe.mp4', poster: 'assets/video/spark-cafe.jpg', duration: '0:30',
       desc: 'A neighbourhood café site with an interactive menu, counter checkout and orders sent straight to WhatsApp, plus a live order-status board.',
       links: [{ label: 'Visit site', href: 'https://bold-tooth-bb5d.himanshuswami2810.workers.dev/' }],
     },
@@ -62,6 +65,7 @@ window.SITE = {
       domain: 'bold-dew-1e09.workers.dev',
       bg: '#F3E3D3', ink: '#7C2D12',
       image: '',
+      video: 'assets/video/cup2eat.mp4', poster: 'assets/video/cup2eat.jpg', duration: '0:30',
       desc: 'A product site for edible chocolate-coated cups, with retail and bulk packs and wholesale enquiries.',
       links: [{ label: 'Visit site', href: 'https://bold-dew-1e09.himanshuswami2810.workers.dev/' }],
     },
@@ -73,6 +77,7 @@ window.SITE = {
       domain: 'Google Play',
       bg: '#D9F7E8', ink: '#047857',
       image: '',
+      video: 'assets/video/aapno-bazar.mp4', poster: 'assets/video/aapno-bazar.jpg', duration: '1:38',
       desc: 'Order groceries with delivery slots, live order tracking, coupons and UPI or cash on delivery.',
       links: [{ label: 'Play Store', href: 'https://play.google.com/store/apps/details?id=com.aapnobazar.app' }],
     },
